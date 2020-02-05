@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
+import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import queryString from 'query-string';
 
 class Checkout extends Component{
     state={
@@ -12,13 +13,10 @@ class Checkout extends Component{
     }
 
     componentDidMount(){
-        const query = new URLSearchParams(this.props.location.search);
-        let ingredients = {};
-        for(let param in query.entries()){
-            //['salad', '1']
-            ingredients[param[0]] = +param[1];
-        }
-        this.setState({ingredients: ingredients});
+        
+        //const query = new URLSearchParams(this.props.location.search);    //not working
+        const ingredient = queryString.parse(this.props.location.search);
+        this.setState({ingredients: ingredient});
     }
 
     checkoutCancelledHandler = () => {
